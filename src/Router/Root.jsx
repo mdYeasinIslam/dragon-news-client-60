@@ -7,6 +7,8 @@ import News from '../Pages/News/news/News';
 import LogIn from '../Pages/LogIn/LogIn';
 import Register from '../Pages/Register/Register';
 import PrivateRoot from './PrivateRoot';
+import TermsAndCondition from '../Pages/TermsAndCondition/TermsAndCondition';
+import UserProfile from '../Pages/UserProfile/UserProfile';
 
 const Root = () => {
     const router = createBrowserRouter([
@@ -19,12 +21,23 @@ const Root = () => {
                     element: <Home></Home>
                 },
                 {
-                    path:'/categories/:id',
-                    element:<PrivateRoot><Categories/></PrivateRoot>
+                    path:'/category/:id',
+                    element:<PrivateRoot><Categories/></PrivateRoot>,
+                    loader : ({params})=>fetch(`http://localhost:5000/category/${params.id}`)
                 },
                 {
                     path:'/news/:id',
-                    element:<News/>
+                    element:<PrivateRoot><News/> </PrivateRoot>,
+                    loader:({params}) =>fetch(`http://localhost:5000/news/${params.id}`)
+                
+                },
+                {
+                    path:'/terms',
+                    element:<TermsAndCondition/>
+                },
+                {
+                    path:'/profile',
+                    element:<PrivateRoot><UserProfile/></PrivateRoot>
                 },
                 {
                     path:'/login',

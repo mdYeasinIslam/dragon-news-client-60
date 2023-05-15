@@ -5,19 +5,23 @@ import Modal from 'react-bootstrap/Modal';
 import { AuthContext, ModalContext } from '../../contexts/UserContext';
 import { Form } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-
+import { toast } from 'react-hot-toast';
+ 
 const LogIn = () => {
     // using for modal
     const { show, setShow } = useContext(ModalContext)
     const handleClose = () => setShow(false);
+    
+    //sign in form handler
+    const { signInAuth,setLoader } = useContext(AuthContext)
     const navigate = useNavigate()
     const location = useLocation()
 
     let from = location.state?.from?.pathname || '/'
-    //sign in form handler
-    const { signInAuth } = useContext(AuthContext)
+    
     const signInformHandler = (e) => {
         e.preventDefault()
+      
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
@@ -27,10 +31,18 @@ const LogIn = () => {
             .then(result => {
                 const user = result.user;
                 form.reset()
-                navigate(from, { replace: true })
+                if(user.emailVerified){
+                    navigate(from, { replace: true })
+                    toast.success("Email is varified and successfully loged IN")
+                }
+                else{
+                    toast.error("Email is not varified")
+                    navigate('/')
+                }
 
             })
             .catch(e => console.error(e))
+            .finally(()=>setLoader(false))
     }
     return (
         <div>

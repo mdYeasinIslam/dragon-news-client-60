@@ -1,12 +1,16 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../contexts/UserContext';
+import { useLoaderData } from 'react-router-dom';
+import NewsByCategory from '../NewsByCategory/NewsByCategory';
 
 const Categories = () => {
     const {user} = useContext(AuthContext)
-    console.log(user)
+    const categoryData = useLoaderData()
     return (
         <div>
-            <h2>{user?.email}</h2>
+            {
+                categoryData.map(category => <NewsByCategory key={category._id} category={category}/>)
+            }
         </div>
     );
 };

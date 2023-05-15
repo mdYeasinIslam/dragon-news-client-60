@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, NavLink } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Image } from 'react-bootstrap';
 import { AuthContext, ModalContext } from '../../../contexts/UserContext';
 
 
@@ -12,14 +12,12 @@ const Header = () => {
     const { setShow } = useContext(ModalContext)
     const { user, logOut } = useContext(AuthContext)
     const handleShow = () => setShow(true);
-    // console.log(user)
     const signOutAuth = () => {
         logOut()
             .then(() => {
                 alert('You are loged out')
             })
             .catch(e => console.error(e))
-
     }
     return (
         <div>
@@ -56,7 +54,9 @@ const Header = () => {
                                         <Button variant="light"> <Link onClick={handleShow} to='/register' > Sign Up</Link></Button>
                                     </>
                             }
-
+                            <Link to='/profile' className='d-flex'>
+                                <Image style={{width:"35px " ,height:"35px"}} src={user?.photoURL} roundedCircle />
+                            </Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

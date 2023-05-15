@@ -1,6 +1,7 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-
+import download from '../../../../public/download (1).jpg'
+import download1 from '../../../../public/download.jpg'
 const RightSlider = () => {
     return (
         <div>
@@ -8,7 +9,7 @@ const RightSlider = () => {
                 <Carousel.Item interval={1000}>
                     <img 
                         className="d-block w-100"
-                        src="download.jpg"
+                        src={download}
                         alt="First slide"
                     />
                     <Carousel.Caption>
@@ -19,7 +20,7 @@ const RightSlider = () => {
                 <Carousel.Item interval={500}>
                     <img
                         className="d-block w-100"
-                        src="download (1).jpg"
+                        src={download1}
                         alt="Second slide"
                     />
                     <Carousel.Caption>
